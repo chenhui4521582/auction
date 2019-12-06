@@ -26,6 +26,8 @@
     <auction-playing />
     <!-- 商品详情 -->
     <auction-detail :detailImg="detailImg"/>
+    <!-- 出价,托管 操作 -->
+    <submit />
   </div>
 </template>
 <script>
@@ -39,6 +41,7 @@ import AuctionStrategy from './components/auctionStrategy'
 import AuctionIntroduce from './components/auctionIntroduce'
 import AuctionPlaying from './components/auctionPlaying'
 import AuctionDetail from './components/auctionDetail'
+import Submit from './components/submit'
 import _get from 'lodash.get'
 export default {
   name: 'auction',
@@ -64,7 +67,8 @@ export default {
     AuctionStrategy,
     AuctionIntroduce,
     AuctionPlaying,
-    AuctionDetail
+    AuctionDetail,
+    Submit
   },
   methods: {
     _getAuctionInfo() {

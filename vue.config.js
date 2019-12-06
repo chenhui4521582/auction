@@ -25,10 +25,14 @@ module.exports = {
   chainWebpack: config => {
     config.plugins.delete("prefetch");
   },
+
   lintOnSave: false,
+
   // 生产环境去除map
   productionSourceMap: NODE_ENV === "production" ? false : true,
+
   publicPath: NODE_ENV === "production" ? "/xmWap/" : "/",
+
   // 配置一下基础配置
   configureWebpack: {
     resolve: {
@@ -39,6 +43,7 @@ module.exports = {
       ...isProduction()
     ]
   },
+
   // css的配置
   css: {
     loaderOptions: {
@@ -47,9 +52,17 @@ module.exports = {
       }
     }
   },
+
   // 开发环配置
   devServer: {
     port: 9922,
     open: true
+  },
+
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [__dirname + '/src/assets/less/*.less']
+    }
   }
 };

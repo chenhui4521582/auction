@@ -7,7 +7,7 @@
     </div>
     <div class="center">
       <div class="item-img" v-for="(item, index) in detailImg" :key="index">
-        <img v-lazy="item.detailImg" alt="">
+        <img v-lazy="item.content" alt="">
       </div>
     </div>
   </div>
@@ -25,7 +25,6 @@ export default {
 </script>
 <style scoped lang="less">
 .detail {
-  margin-bottom: .2rem;
   background: #fff;
   .title {
     padding: .2rem .24rem;
@@ -54,7 +53,7 @@ export default {
     }
   }
   .center {
-    padding: .32rem .32rem .28rem;
+    padding: .32rem .32rem .98rem;
     img {
       vertical-align: top;
       width: 100%;

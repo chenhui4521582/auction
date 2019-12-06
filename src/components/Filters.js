@@ -67,5 +67,14 @@ export default [
         return `${y}-${m}-${d} ${h}:${minute}:${second}`
       }
     }
+  },
+  {
+    name: 'unit',
+    method: (data) => {
+      if(data) {
+        return (data / 10000).toFixed(2) + '万'
+      }
+      return data
+    } 
   }
 ]
