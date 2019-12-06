@@ -35,11 +35,11 @@
       </div>
     </template>
     <!-- 设置弹框 -->
-    <setting v-model="isSetting"/>
+    <setting-modal v-model="isSetting"/>
   </div>
 </template>
 <script>
-import Setting from './setting'
+import SettingModal from './popup/settingModal'
 export default {
   name: 'submit',
   data: ()=> ({
@@ -49,7 +49,7 @@ export default {
     isSetting: false,
   }),
   components: {
-    Setting
+    SettingModal
   },
   methods: {
     /** 打开托管 **/

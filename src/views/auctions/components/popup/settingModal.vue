@@ -7,13 +7,13 @@
           <div class="label">出价间隔</div>
           <div class="input">
             <div class="add">
-              <img v-if="!minTime" src="../img/setting-remove-icon.png" alt="">
-              <img v-else src="../img/setting-remove1-icon.png" alt="">
+              <img v-if="!minTime" src="../../img/setting-remove-icon.png" alt="">
+              <img v-else src="../../img/setting-remove1-icon.png" alt="">
             </div>
             <div class="value">{{time}}</div>
             <div class="remove">
-              <img v-if="!maxTime" src="../img/setting-add-icon.png" alt="">
-              <img v-else src="../img/setting-add1-icon.png" alt="">
+              <img v-if="!maxTime" src="../../img/setting-add-icon.png" alt="">
+              <img v-else src="../../img/setting-add1-icon.png" alt="">
             </div>
           </div>
         </div>
@@ -21,18 +21,18 @@
           <div class="label">出价限额</div>
           <div class="input">
             <div class="add">
-              <img v-if="!minMoney" src="../img/setting-remove-icon.png" alt="">
-              <img v-else src="../img/setting-remove1-icon.png" alt="">
+              <img v-if="!minMoney" src="../../img/setting-remove-icon.png" alt="">
+              <img v-else src="../../img/setting-remove1-icon.png" alt="">
             </div>
             <div class="value">{{money}}</div>
             <div class="remove">
-              <img v-if="!maxMoney" src="../img/setting-add-icon.png" alt="">
-              <img v-else src="../img/setting-add1-icon.png" alt="">
+              <img v-if="!maxMoney" src="../../img/setting-add-icon.png" alt="">
+              <img v-else src="../../img/setting-add1-icon.png" alt="">
             </div>
           </div>
         </div>
         <div class="explain">
-          <img src="../img/warning-icon.png" alt="">
+          <img src="../../img/warning-icon.png" alt="">
           每隔x秒自动出价（若为最高价，则不会出价）
         </div>
         <div class="btns">

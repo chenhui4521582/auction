@@ -11,11 +11,17 @@
     <div class="center">
       <img src="../img/playing.png" alt="">
     </div>
+    <playing-modal />
   </div>
+  
 </template>
 <script>
+import PlayingModal from './popup/playingModal'
 export default {
   name: 'auctionPlaying',
+  components: {
+    PlayingModal
+  }
 }
 </script>
 <style scoped lang="less">
