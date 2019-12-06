@@ -5,6 +5,7 @@
 </template>
 
 <style lang="less">
+@import url("~@/assets/less/base.less");
 #app {
   line-height: 1;
   font-size: 0.28rem;

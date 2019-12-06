@@ -57,12 +57,5 @@ module.exports = {
   devServer: {
     port: 9922,
     open: true
-  },
-
-  pluginOptions: {
-    'style-resources-loader': {
-      preProcessor: 'less',
-      patterns: [__dirname + '/src/assets/less/*.less']
-    }
   }
 };
