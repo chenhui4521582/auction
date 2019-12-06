@@ -1,0 +1,114 @@
+@size: 100*1rem;
+
+.bgCenter(@url) {
+  background: url(@url) no-repeat center center / 100% 100%;
+}
+
+.bgTop(@url) {
+  background: url(@url) no-repeat center top / 100% 100%;
+}
+
+.width(@num) {
+  width: @num / @size;
+}
+
+.maxWidth(@num) {
+  max-width: @num / @size;
+}
+
+.minWidth(@num) {
+  min-width: @num / @size;
+}
+
+.height(@num) {
+  height: @num / @size;
+}
+
+.maxHeight(@num) {
+  max-height: @num / @size;
+}
+
+.minWidth(@num) {
+  min-height: @num / @size;
+}
+
+.line-height(@num) {
+  line-height: @num / @size;
+}
+
+.margin(@num) {
+  margin: @num/@size;
+}
+
+.mSides(@num) {
+  margin: 0 @num/@size;
+}
+
+.mHighLow(@num) {
+  margin: @num/@size 0;
+}
+
+.mLeft(@l) {
+  margin-left: @l/@size;
+}
+
+.mRight(@r) {
+  margin-right: @r/@size;
+}
+
+.mTop(@t) {
+  margin-top: @t/@size;
+}
+
+.mBottom(@b) {
+  margin-bottom: @b/@size;
+}
+
+.padding(@num) {
+  padding: @num/@size;
+}
+
+.pSides(@num) {
+  padding: 0 @num/@size;
+}
+
+.pHighLow(@num) {
+  padding: @num/@size 0;
+}
+
+.pLeft(@l) {
+  padding-left: @l/@size;
+}
+
+.pRight(@r) {
+  padding-right: @r/@size;
+}
+
+.pTop(@t) {
+  padding-top: @t/@size;
+}
+
+.pBottom(@b) {
+  padding-bottom: @b/@size;
+}
+
+.border(@num, @color) {
+  border: @num/@size solid @color;
+}
+
+.border-radius(@num) {
+  border-radius: @num/@size;
+}
+
+.font-size(@num) {
+  font-size: @num / @size;
+}
+
+.clear {
+  &:after {
+    display: block;
+    clear: both;
+    content: '';
+    height: 0;
+  }
+}
