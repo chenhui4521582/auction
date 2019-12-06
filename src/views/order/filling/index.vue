@@ -1,12 +1,12 @@
 <template>
-  <section>
+  <section class="order-filling">
 
   </section>
 </template>
 
 <script>
 export default {
-  name: '',
+  name: 'orderFilling',
   components: {
 
   },
