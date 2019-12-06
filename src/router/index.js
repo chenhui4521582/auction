@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 /***====== pages ======***/
 import My from './my'
+import Order from './order'
 Vue.use(VueRouter)
 const routes = [
   ...My,
+  ...Order,
   {
     path: '/',
     name: 'index',
