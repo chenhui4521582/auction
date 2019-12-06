@@ -4,16 +4,13 @@ module.exports = {
     node: true
   },
   extends: 'standard',
-  plugins: [
-    'vue',
-    'html'
-  ],
+  plugins: ['vue', 'html'],
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    "semi": "off",
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    semi: 'off'
   },
   parserOptions: {
-    parser: "babel-eslint"
+    parser: 'babel-eslint'
   }
-};
+}

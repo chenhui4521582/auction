@@ -38,27 +38,27 @@ export default {
 <style lang="less" scoped>
 .index {
   overflow-x: hidden;
-  padding: .16rem 0 .16rem;
+  padding: 0.16rem 0 0.16rem;
   .go-payment-title {
-    margin: 0 .24rem .24rem .24rem;
-    padding: 0 .32rem 0 .24rem;
-    height: .78rem;
+    margin: 0 0.24rem 0.24rem 0.24rem;
+    padding: 0 0.32rem 0 0.24rem;
+    height: 0.78rem;
     background: url(./img/payment_bg.png) no-repeat center top / 100% 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     .name {
-      font-size: .28rem;
+      font-size: 0.28rem;
       color: #333;
       font-weight: bold;
     }
     .operation {
-      padding-right: .21rem;
-      background: url(./img/right-icon.png) no-repeat right center / .09rem .17rem;
-      font-size: .24rem;
+      padding-right: 0.21rem;
+      background: url(./img/right-icon.png) no-repeat right center / 0.09rem
+        0.17rem;
+      font-size: 0.24rem;
       color: #333;
     }
   }
 }
-
 </style>

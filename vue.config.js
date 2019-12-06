@@ -34,8 +34,12 @@ module.exports = {
   publicPath: NODE_ENV === "production" ? "/xmWap/" : "/",
 
   // 配置一下基础配置
+
+
   configureWebpack: {
     resolve: {
+
+
       alias: {}
     },
     plugins: [
@@ -57,5 +61,12 @@ module.exports = {
   devServer: {
     port: 9922,
     open: true
+  },
+
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [__dirname + '/src/assets/less/*.less']
+    }
   }
 };
