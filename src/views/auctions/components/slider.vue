@@ -1,11 +1,11 @@
 <template>
-  <div class="auctions-banner" v-if="showSlider">
-    <div class="wrapper">
+  <div class="auctions-banner">
+    <div class="wrapper" v-if="showSlider">
       <swiper :options="options">
-        <swiper-slide 
-          class="swiper-slide" 
-          v-for="(item, index) in sliderList" 
-          :key="index" 
+        <swiper-slide
+          class="swiper-slide"
+          v-for="(item, index) in auction.sliderList"
+          :key="index"
           @click.native="slideClick(item, index)"
         >
           <img class="swiper-img" v-lazy="item" alt="" />
@@ -16,15 +16,15 @@
   </div>
 </template>
 <script>
-
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import { mapState } from 'vuex'
 export default {
   name: 'banner',
   props: {
     sliderList: {
       type: Array,
-      default: ()=> ([])
+      default: () => []
     }
   },
   data: () => ({
@@ -35,11 +35,21 @@ export default {
       observer: true,
       observeParents: true,
       paginationType: 'fraction',
-      paginationFractionRender: function (swiper, currentClassName, totalClassName) {
+      paginationFractionRender: function(
+        swiper,
+        currentClassName,
+        totalClassName
+      ) {
         console.log()
-        return '<span class="' + currentClassName + '"></span>' +
-              '/' +
-              '<span class="' + totalClassName + '"></span>';
+        return (
+          '<span class="' +
+          currentClassName +
+          '"></span>' +
+          '/' +
+          '<span class="' +
+          totalClassName +
+          '"></span>'
+        )
       }
     }
   }),
@@ -48,13 +58,14 @@ export default {
     swiperSlide
   },
   computed: {
+    ...mapState(['auction']),
     showSlider() {
-      return this.sliderList.length
+      return this.auction.sliderList.length
     }
   },
   methods: {
     /** banner点击 **/
-    slideClick (item, index) {
+    slideClick(item, index) {
       let url = item.lightUrl || item.url
       if (url) {
         // 跳转
@@ -71,7 +82,7 @@ export default {
   height: 6.38rem;
   background: #fff;
   .swiper-container {
-    border-radius: .06rem;
+    border-radius: 0.06rem;
   }
   .swiper-img {
     vertical-align: top;
@@ -80,22 +91,21 @@ export default {
     overflow: hidden;
   }
   .swiper-pagination {
-    bottom: .3rem;
+    bottom: 0.3rem;
     left: inherit;
-    right: .3rem;
+    right: 0.3rem;
     z-index: 5;
-    width: .48rem;
-    height: .32rem;
-    line-height: .32rem;
-    background:rgba(51,51,51,1);
-    border-radius:.16rem;
+    width: 0.48rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    background: rgba(51, 51, 51, 1);
+    border-radius: 0.16rem;
     text-align: center;
-    font-size: .16rem;
+    font-size: 0.16rem;
     color: #fff;
-    opacity: .5;
+    opacity: 0.5;
   }
   .swiper-pagination-fraction {
-
   }
 }
 </style>

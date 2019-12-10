@@ -57,12 +57,12 @@ export default [
         return `${y}-${m}-${d} ${h}:${minute}:${second}`
       } else if (type === 'y-m-d') {
         return `${y}-${m}-${d}`
-      } else if (type === 'm-d') {
-        return `${m}-${d}`
-      } else if (type === 'y.m.d') {
-        return `${y}.${m}.${d}`
+      } else if (type === 'h:m:s') {
+        return `${h}.${minute}.${second}`
       } else if (type === 'm.d') {
-        return `${m}.${d}`
+        return `${m}-${d}`
+      } else if (type === 'm-d h:m:s') {
+        return `${m}-${d} ${h}:${minute}:${second}`
       } else {
         return `${y}-${m}-${d} ${h}:${minute}:${second}`
       }
@@ -70,11 +70,11 @@ export default [
   },
   {
     name: 'unit',
-    method: (data) => {
-      if(data) {
+    method: data => {
+      if (data) {
         return (data / 10000).toFixed(2) + '万'
       }
       return data
-    } 
+    }
   }
 ]

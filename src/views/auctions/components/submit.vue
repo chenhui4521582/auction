@@ -39,12 +39,10 @@
         <img src="../img/setting-icon.png" alt="" />
       </div>
     </template>
-    <!-- 设置弹框 -->
-    <setting-modal v-model="isSetting" />
   </div>
 </template>
 <script>
-import SettingModal from './popup/settingModal'
+import { mapMutations } from 'vuex'
 export default {
   name: 'submit',
   data: () => ({
@@ -53,10 +51,10 @@ export default {
     /** 是否显示托管设置 **/
     isSetting: false
   }),
-  components: {
-    SettingModal
-  },
   methods: {
+    ...mapMutations({
+      openSettingModal: 'SET_SETTING_MODAL'
+    }),
     /** 打开托管 **/
     openEntrust() {
       this.isEntrust = true
@@ -65,14 +63,15 @@ export default {
     hideEntrust() {
       this.isEntrust = false
     },
+    /** 打开托管设置 **/
+    openSetting() {
+      /*vuex mutations 打开托管设置方法*/
+      this.openSettingModal(true)
+    },
     /** 去支付 **/
     gotoPay() {},
     /** 出价 **/
-    commit() {},
-    /** 打开设置 **/
-    openSetting() {
-      this.isSetting = true
-    }
+    commit() {}
   },
   mounted() {}
 }
@@ -83,7 +82,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 11;
+  z-index: 2;
   height: 0.98rem;
   background: #ffffff;
   display: flex;
