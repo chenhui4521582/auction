@@ -4,27 +4,25 @@
       <div class="name">
         往期成交
       </div>
-      <div class="check">
-        最近20场<img src="../img/right-icon.png" alt="">
+      <div class="check" @click="openModal">
+        最近20场<img src="../img/right-icon.png" alt="" />
       </div>
     </div>
-    <div class="list" v-if="showList">
+    <div class="list" v-if="showHistoryList">
       <div class="list-title">
         <div class="name">成交人</div>
         <div class="price">成交价</div>
         <div class="time">时间</div>
       </div>
       <ul>
-        <template v-for="(item, index) in list">
+        <template v-for="(item, index) in auction.historyAuctionList">
           <li v-if="index < 3" :key="index">
             <div class="name">
-              {{item.name}}
+              {{ item.nickname }}
             </div>
-            <div class="price">
-               ¥{{item.price}}
-            </div>
+            <div class="price">¥{{ item.price }}</div>
             <div class="time">
-              {{item.time}}
+              {{ item.endTime | formatTime('m-d h:m:s') }}
             </div>
           </li>
         </template>
@@ -33,43 +31,46 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
-  name: 'auctionUser',
-  // props: {
-  //   list: {
-  //     type: Array,
-  //     default: ()=> ([])
-  //   }
-  // },
-  data: ()=> ({
-      
-    list: [
-      {time: '05-30 09:32:25', name: '小蜜蜂爱跳舞', price: '19.08'},
-      {time: '05-30 09:11:55', name: '追忆楠', price: '19.05'},
-      {time: '05-30 09:05:25', name: '稻田的麦子', price: '19.03'},
-      {time: '05-30 09:05:25', name: '稻田的麦子1', price: '19.03'}
-    ]
-  }),
+  name: 'historyAuction',
   computed: {
-    showList() {
-      return this.list.length
+    ...mapState(['auction']),
+    showHistoryList() {
+      return this.auction.historyAuctionList.length
     }
+  },
+  methods: {
+    ...mapActions({
+      _getHistoryAuctionList: 'getHistoryAuctionList'
+    }),
+    ...mapMutations({
+      openHisotyAuctionModal: 'SET_HISTORYAUCTION_MODAL'
+    }),
+    openModal() {
+      /*vuex mutations 打开往期成交详情*/
+      this.openHisotyAuctionModal(true)
+    }
+  },
+  mounted() {
+    /*vuex actions 获取往期成交数据*/
+    this._getHistoryAuctionList()
   }
 }
 </script>
 <style lang="less" scoped>
 .history-log {
   background: #fff;
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
   .title {
-    padding: .2rem .24rem .2rem;
-    height: .8rem;
+    padding: 0.2rem 0.24rem 0.2rem;
+    height: 0.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #e0e0e0;
     .name {
-      font-size: .28rem;
+      font-size: 0.28rem;
       color: #333;
       font-weight: 600;
     }
@@ -77,25 +78,25 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      font-size: .24rem;
+      font-size: 0.24rem;
       color: #999;
       img {
-        margin-left: .08rem;
+        margin-left: 0.08rem;
         display: block;
-        width: .09rem;
-        height: .17rem;
+        width: 0.09rem;
+        height: 0.17rem;
       }
     }
   }
   .list {
-    padding: .2rem .24rem 0;
+    padding: 0.2rem 0.24rem 0;
     .list-title {
-      height: .6rem;
+      height: 0.6rem;
       display: flex;
       justify-content: flex-start;
-      line-height: .6rem;
-      background: #FAFAFA;
-      font-size: .24rem;
+      line-height: 0.6rem;
+      background: #fafafa;
+      font-size: 0.24rem;
       color: #999;
       .name {
         width: 33.33%;
@@ -111,14 +112,14 @@ export default {
       }
     }
     li {
-      height: .8rem;
+      height: 0.8rem;
       display: flex;
       justify-content: flex-start;
-      line-height: .8rem;
+      line-height: 0.8rem;
       background: #fff;
-      font-size: .28rem;
+      font-size: 0.28rem;
       color: #666;
-      border-bottom: 1px solid #F0F0F0;
+      border-bottom: 1px solid #f0f0f0;
       &:last-child {
         border-bottom: none;
       }

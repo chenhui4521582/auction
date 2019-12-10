@@ -14,7 +14,7 @@
     </div>
     <div class="list">
       <ul class="left-list" ref="left">
-        <li v-for="(item, index) in leftArr" :key="index">
+        <li v-for="(item, index) in leftArr" :key="index" @click="goAuction">
           <div class="auction-img">
             <img v-lazy="item.defaultGoodsImage" alt="">
           </div>
@@ -1627,6 +1627,12 @@ export default {
             this.$refs.nav.classList.remove('fixed')
           }
         })
+      })
+    },
+    /** 详情跳转 **/
+    goAuction() {
+      this.$router.push({
+        name: 'auctions'
       })
     }
   },

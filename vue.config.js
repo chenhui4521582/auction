@@ -1,12 +1,12 @@
-const path = require("path");
-const autoprefixer = require("autoprefixer");
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const NODE_ENV = process.env.NODE_ENV;
+const path = require('path')
+const autoprefixer = require('autoprefixer')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const NODE_ENV = process.env.NODE_ENV
 const resolve = dir => {
-  return path.join(__dirname, dir);
-};
+  return path.join(__dirname, dir)
+}
 const isProduction = () => {
-  if (NODE_ENV === "production") {
+  if (NODE_ENV === 'production') {
     return [
       // 分析包大小
       // new BundleAnalyzerPlugin(),
@@ -16,30 +16,27 @@ const isProduction = () => {
         threshold: 10240,
         deleteOriginalAssets: false
       })
-    ];
+    ]
   } else {
-    return [];
+    return []
   }
-};
+}
 module.exports = {
   chainWebpack: config => {
-    config.plugins.delete("prefetch");
+    config.plugins.delete('prefetch')
   },
 
   lintOnSave: false,
 
   // 生产环境去除map
-  productionSourceMap: NODE_ENV === "production" ? false : true,
+  productionSourceMap: NODE_ENV === 'production' ? false : true,
 
-  publicPath: NODE_ENV === "production" ? "/xmWap/" : "/",
+  publicPath: NODE_ENV === 'production' ? '/h5auction/' : '/',
 
   // 配置一下基础配置
 
-
   configureWebpack: {
     resolve: {
-
-
       alias: {}
     },
     plugins: [
@@ -69,4 +66,4 @@ module.exports = {
       patterns: [__dirname + '/src/assets/less/*.less']
     }
   }
-};
+}

@@ -1,29 +1,27 @@
 <template>
   <div class="setting">
-    <div class="mask"
-         v-if="value"></div>
+    <div class="mask" v-if="auction.showSetting"></div>
     <transition name="fade">
-      <div class="center"
-           v-if="value">
+      <div class="center" v-if="auction.showSetting">
         <div class="time">
           <div class="label">出价间隔</div>
           <div class="input">
             <div class="add">
-              <img v-if="!minTime"
-                   src="../../img/setting-remove-icon.png"
-                   alt="">
-              <img v-else
-                   src="../../img/setting-remove1-icon.png"
-                   alt="">
+              <img
+                v-if="!minTime"
+                src="../../img/setting-remove-icon.png"
+                alt=""
+              />
+              <img v-else src="../../img/setting-remove1-icon.png" alt="" />
             </div>
-            <div class="value">{{time}}</div>
+            <div class="value">{{ time }}</div>
             <div class="remove">
-              <img v-if="!maxTime"
-                   src="../../img/setting-add-icon.png"
-                   alt="">
-              <img v-else
-                   src="../../img/setting-add1-icon.png"
-                   alt="">
+              <img
+                v-if="!maxTime"
+                src="../../img/setting-add-icon.png"
+                alt=""
+              />
+              <img v-else src="../../img/setting-add1-icon.png" alt="" />
             </div>
           </div>
         </div>
@@ -31,34 +29,31 @@
           <div class="label">出价限额</div>
           <div class="input">
             <div class="add">
-              <img v-if="!minMoney"
-                   src="../../img/setting-remove-icon.png"
-                   alt="">
-              <img v-else
-                   src="../../img/setting-remove1-icon.png"
-                   alt="">
+              <img
+                v-if="!minMoney"
+                src="../../img/setting-remove-icon.png"
+                alt=""
+              />
+              <img v-else src="../../img/setting-remove1-icon.png" alt="" />
             </div>
-            <div class="value">{{money}}</div>
+            <div class="value">{{ money }}</div>
             <div class="remove">
-              <img v-if="!maxMoney"
-                   src="../../img/setting-add-icon.png"
-                   alt="">
-              <img v-else
-                   src="../../img/setting-add1-icon.png"
-                   alt="">
+              <img
+                v-if="!maxMoney"
+                src="../../img/setting-add-icon.png"
+                alt=""
+              />
+              <img v-else src="../../img/setting-add1-icon.png" alt="" />
             </div>
           </div>
         </div>
         <div class="explain">
-          <img src="../../img/warning-icon.png"
-               alt="">
+          <img src="../../img/warning-icon.png" alt="" />
           每隔x秒自动出价（若为最高价，则不会出价）
         </div>
         <div class="btns">
-          <div class="cancel-btn"
-               @click="hideSetting">取消</div>
-          <div class="confirm-btn"
-               @click="saveSetting">确认</div>
+          <div class="cancel-btn" @click="hideSetting">取消</div>
+          <div class="confirm-btn" @click="saveSetting">确认</div>
         </div>
       </div>
     </transition>
@@ -66,46 +61,42 @@
 </template>
 <script>
 import newUtils from '@/utils/utils'
+import { mapState, mapMutaions, mapMutations } from 'vuex'
 export default {
-  name: 'setting',
-  props: {
-    value: {
-      type: Boolean,
-      default: false
-    }
-  },
+  name: 'settingModal',
   data: () => ({
     time: 1,
     money: 100
   }),
   computed: {
-    maxTime () {
+    ...mapState(['auction']),
+    maxTime() {
       return this.time >= 10
     },
-    maxMoney () {
+    maxMoney() {
       return this.money >= 819000
     },
-    minTime (){
+    minTime() {
       return this.time <= 1
     },
-    minMoney () {
+    minMoney() {
       return this.time <= 100
     }
   },
   methods: {
+    ...mapMutations({
+      closeSettingModal: 'SET_SETTING_MODAL'
+    }),
     /** 保存设置 **/
-    saveSetting () {
-
-    },
+    saveSetting() {},
     /** 关闭设置弹框 **/
-    hideSetting () {
-      this.$emit('input', false);
-
-
+    hideSetting() {
+      /*vuex mutations 关闭托管设置方法*/
+      this.closeSettingModal(false)
     }
   },
   watch: {
-    value (newValue) {
+    'auction.showSetting'(newValue) {
       if (newValue) {
         newUtils.ScrollNoMove()
       } else {
@@ -118,14 +109,14 @@ export default {
 <style scoped lang="less">
 .setting {
   position: fixed;
-  z-index: 11;
+  z-index: 12;
   .mask {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
-    z-index: 11;
+    z-index: 1;
     background: rgba(0, 0, 0, 0.5);
   }
   .center {

@@ -8,7 +8,7 @@ import Filters from './Filters'
 // import bottomLine from '../components/ui_compontents/bottomLine/bottomLine.vue'
 // import noList from '../components/ui_compontents/noList/noList.vue'
 // import awardsDialog from '../components/awardsDialog/awardsDialog'
-// import loading from '../components/ui_compontents/loading/loading'
+import loading from './loading/loading'
 
 // 自定义全局组件
 const components = [
@@ -19,7 +19,7 @@ const components = [
   // bottomLine,
   // noList,
   // awardsDialog,
-  // loading,
+  loading,
   CountDown
 ]
 
