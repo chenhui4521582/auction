@@ -10,31 +10,36 @@
       <div class="end-time">
         <div class="title">距结束仅剩</div>
         <!-- 毫秒倒计时 -->
-        <count-down :time="time"/>
+        <count-down :time="time" />
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 <script>
 import CountDown from './countDown'
+import { mapState } from 'vuex'
 export default {
   name: 'currentMsg',
-  data: ()=> ({
+  data: () => ({
     time: 10000
   }),
   components: {
     CountDown
   },
+  computed: {
+    ...mapState(['auction'])
+  },
   methods: {
     /** 浮动导航栏 **/
     scrollFixed() {
-      this.$nextTick(res=> {
+      this.$nextTick(res => {
         let navScrollTop = this.$refs['currentMsg'].offsetTop
-        window.addEventListener("scroll", event => {
-          let scrollTop = document.documentElement.scrollTop||document.body.scrollTop
-          if(scrollTop >= navScrollTop ) {
+        window.addEventListener('scroll', event => {
+          let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop
+          if (scrollTop >= navScrollTop) {
             this.$refs.currentMsg.classList.add('fixed')
-          }else {
+          } else {
             this.$refs.currentMsg.classList.remove('fixed')
           }
         })
@@ -43,7 +48,8 @@ export default {
   },
   mounted() {
     this.scrollFixed()
-  }
+  },
+  watch: {}
 }
 </script>
 <style lang="less" scoped>
@@ -62,42 +68,42 @@ export default {
     .price {
       display: flex;
       flex: 1;
-      padding-left: .32rem;
+      padding-left: 0.32rem;
       height: 1.12rem;
-      background: #5A595E;
+      background: #5a595e;
       .current-price {
         line-height: 1.12rem;
-        color: #FFD00B;
-        font-size: .24rem;
+        color: #ffd00b;
+        font-size: 0.24rem;
       }
       .unit {
-        margin: 0 .08rem;
+        margin: 0 0.08rem;
         line-height: 1.1rem;
-        font-size: .36rem;
-        color: #FFD00B;
+        font-size: 0.36rem;
+        color: #ffd00b;
       }
       .num {
-        margin-right: .15rem;
+        margin-right: 0.15rem;
         line-height: 1rem;
-        font-size: .48rem;
-        font-weight:600;
-        color: #FFD00B;
+        font-size: 0.48rem;
+        font-weight: 600;
+        color: #ffd00b;
       }
       .commodity-price {
-        text-decoration:line-through;
+        text-decoration: line-through;
         line-height: 1.12rem;
-        color: #FFFFFF;
-        opacity: .9;
+        color: #ffffff;
+        opacity: 0.9;
       }
     }
     .end-time {
       width: 2.5rem;
       height: 1.12rem;
-      background: #FFE269;
+      background: #ffe269;
       .title {
-        padding: .1rem 0;
+        padding: 0.1rem 0;
         text-align: center;
-        font-size: .2rem;
+        font-size: 0.2rem;
         color: #333;
       }
     }
