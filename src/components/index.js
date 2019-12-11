@@ -1,5 +1,6 @@
 import Toast from './popup/toast/toast'
 import CountDown from './countDown/countDown'
+import NoData from './noData/noData'
 import Filters from './Filters'
 // import Modal from '../components/ui_compontents/modal/modal.vue'
 // import wfButton from '../components/ui_compontents/button/button.vue'
@@ -19,6 +20,7 @@ const components = [
   // bottomLine,
   // noList,
   // awardsDialog,
+  NoData,
   loading,
   CountDown
 ]

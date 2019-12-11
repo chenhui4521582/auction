@@ -1,13 +1,8 @@
 <template>
-  <div class="auctions-banner">
+  <div class="auction-banner">
     <div class="wrapper" v-if="showSlider">
       <swiper :options="options">
-        <swiper-slide
-          class="swiper-slide"
-          v-for="(item, index) in auction.sliderList"
-          :key="index"
-          @click.native="slideClick(item, index)"
-        >
+        <swiper-slide class="swiper-slide" v-for="(item, index) in auction.sliderList" :key="index" @click.native="slideClick(item, index)">
           <img class="swiper-img" v-lazy="item" alt="" />
         </swiper-slide>
       </swiper>
@@ -35,21 +30,9 @@ export default {
       observer: true,
       observeParents: true,
       paginationType: 'fraction',
-      paginationFractionRender: function(
-        swiper,
-        currentClassName,
-        totalClassName
-      ) {
+      paginationFractionRender: function(swiper, currentClassName, totalClassName) {
         console.log()
-        return (
-          '<span class="' +
-          currentClassName +
-          '"></span>' +
-          '/' +
-          '<span class="' +
-          totalClassName +
-          '"></span>'
-        )
+        return '<span class="' + currentClassName + '"></span>' + '/' + '<span class="' + totalClassName + '"></span>'
       }
     }
   }),
@@ -76,7 +59,7 @@ export default {
 </script>
 
 <style lang="less">
-.auctions-banner {
+.auction-banner {
   position: relative;
   overflow: hidden;
   height: 6.38rem;

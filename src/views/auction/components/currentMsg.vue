@@ -38,9 +38,11 @@ export default {
           let scrollTop =
             document.documentElement.scrollTop || document.body.scrollTop
           if (scrollTop >= navScrollTop) {
-            this.$refs.currentMsg.classList.add('fixed')
+            this.$refs.currentMsg &&
+              this.$refs.currentMsg.classList.add('fixed')
           } else {
-            this.$refs.currentMsg.classList.remove('fixed')
+            this.$refs.currentMsg &&
+              this.$refs.currentMsg.classList.remove('fixed')
           }
         })
       })
@@ -48,8 +50,7 @@ export default {
   },
   mounted() {
     this.scrollFixed()
-  },
-  watch: {}
+  }
 }
 </script>
 <style lang="less" scoped>

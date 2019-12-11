@@ -1,38 +1,32 @@
 <template>
-  <div class="playing-modal" id="Modal" @touchmove.stop>
+  <div class="offerLo-modal" id="Modal" @touchmove.stop>
     <div class="mask" v-if="auction.showOfferlog"></div>
     <transition name="fade">
       <div class="center" v-if="auction.showOfferlog">
         <div class="title" ref="title">
           出价记录
-          <img
-            class="close"
-            src="../../img/close-icon.png"
-            alt=""
-            @click="hidePlaying"
-          />
+          <img class="close" src="../../img/close-icon.png" alt="" @click="hidePlaying" />
         </div>
-        <div class="list">
-          <div class="nav">
-            <div class="item type">状态</div>
-            <div class="item">用户</div>
-            <div class="item">出价</div>
-            <div class="item">时间</div>
-          </div>
-          <div class="items">
-            <div
-              class="item"
-              v-for="(item, index) in auction.historyAuctionList"
-              :key="index"
-            >
-              <span class="type">{{ index == 0 ? '领先' : '出局' }}</span>
-              <span>{{ item.nickname }}</span>
-              <span>¥{{ item.price }}</span>
-              <span>{{ item.endTime | formatTime('h:m:s') }}</span>
+        <div class="wrap" v-if="offerLogList">
+          <div class="list">
+            <div class="nav">
+              <div class="item type">状态</div>
+              <div class="item">用户</div>
+              <div class="item">出价</div>
+              <div class="item">时间</div>
             </div>
+            <div class="items">
+              <div class="item" v-for="(item, index) in auction.offerLog" :key="index">
+                <span class="type">{{ index == 0 ? '领先' : '出局' }}</span>
+                <span>{{ item.nickname }}</span>
+                <span>¥{{ item.afterPrice }}</span>
+                <span>{{ item.createTime | formatTime('h:m:s') }}</span>
+              </div>
+            </div>
+            <div class="bottom">只显示近20条出价记录</div>
           </div>
-          <div class="bottom">只显示近20条出价记录</div>
         </div>
+        <no-data class="nodata" v-else />
       </div>
     </transition>
   </div>
@@ -41,9 +35,12 @@
 import newUtils from '@/utils/utils'
 import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
-  name: 'offerLog',
+  name: 'offerLogModal',
   computed: {
-    ...mapState(['auction'])
+    ...mapState(['auction']),
+    offerLogList () {
+      return this.auction.offerLog.length
+    },
   },
   methods: {
     ...mapMutations({
@@ -53,17 +50,17 @@ export default {
       _getOfferLog: 'getOfferLog'
     }),
     /** 关闭往期出价弹框 **/
-    hidePlaying() {
+    hidePlaying () {
       /*vuex mutations 关闭往期出价弹框*/
       this.closeOfflogModal(false)
     }
   },
-  mounted() {
+  mounted () {
     /*vuex actions 获取往期出价数据*/
     this._getOfferLog()
   },
   watch: {
-    'auction.showOfferlog'(newValue) {
+    'auction.showOfferlog' (newValue) {
       if (newValue) {
         newUtils.ScrollNoMove()
       } else {
@@ -74,7 +71,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.playing-modal {
+.offerLo-modal {
   position: fixed;
   z-index: 11;
   .mask {
@@ -167,6 +164,9 @@ export default {
         font-size: 0.24rem;
         color: #999999;
       }
+    }
+    .nodata {
+      margin-top: 2rem;
     }
   }
 }

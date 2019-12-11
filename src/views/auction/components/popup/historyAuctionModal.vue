@@ -5,14 +5,9 @@
       <div class="center" v-if="auction.showHistoryAuction">
         <div class="title" ref="title">
           近20期成交价
-          <img
-            class="close"
-            src="../../img/close-icon.png"
-            alt=""
-            @click="hidePlaying"
-          />
+          <img class="close" src="../../img/close-icon.png" alt="" @click="hidePlaying" />
         </div>
-        <div class="wrap" ref="wrap">
+        <div class="wrap" ref="wrap" v-if="historyList">
           <div class="price">
             <div class="item">
               <p class="num">{{ minPrice || '' }}</p>
@@ -37,11 +32,7 @@
               <div class="item">时间</div>
             </div>
             <div class="items">
-              <div
-                class="item"
-                v-for="(item, index) in auction.historyAuctionList"
-                :key="index"
-              >
+              <div class="item" v-for="(item, index) in auction.historyAuctionList" :key="index">
                 <span>{{ item.nickname }}</span>
                 <span>¥{{ item.price }}</span>
                 <span>{{ item.endTime | formatTime('m-d h:m:s') }}</span>
@@ -49,6 +40,7 @@
             </div>
           </div>
         </div>
+        <no-data class="nodata" v-else />
       </div>
     </transition>
   </div>
@@ -69,7 +61,10 @@ export default {
     minPrice: ''
   }),
   computed: {
-    ...mapState(['auction'])
+    ...mapState(['auction']),
+    historyList () {
+      return this.auction.historyAuctionList.length
+    }
   },
   methods: {
     ...mapMutations({
@@ -79,12 +74,12 @@ export default {
       _getHistoryAuctionList: 'getHistoryAuctionList'
     }),
     /** 关闭往期成交弹框 **/
-    hidePlaying() {
+    hidePlaying () {
       /*vuex mutations 关闭往期成交详情*/
       this.closeHisotyAuctionModal(false)
     },
     /** 展示数据 **/
-    echartsData() {
+    echartsData () {
       let arr = []
       this.auction.historyAuctionList.forEach(item => {
         if (item.price) {
@@ -94,7 +89,7 @@ export default {
       return arr
     },
     /** 最高成交价 **/
-    maxData() {
+    maxData () {
       /** 第一条数据价格 **/
       let maxData = this.auction.historyAuctionList[0].price
       this.auction.historyAuctionList.forEach(item => {
@@ -105,7 +100,7 @@ export default {
       return maxData
     },
     /** 最低成交价 **/
-    minData() {
+    minData () {
       /** 第一条数据价格 **/
       let minData = this.auction.historyAuctionList[0].price
       this.auction.historyAuctionList.forEach(item => {
@@ -116,7 +111,7 @@ export default {
       return minData
     },
     /** 平均成交价 **/
-    avrageData() {
+    avrageData () {
       let length = this.auction.historyAuctionList.length
       /** 第一条数据价格 **/
       let allData = 0
@@ -128,7 +123,7 @@ export default {
       return (allData / length).toFixed(2)
     },
     /** 浮动导航栏 **/
-    scrollFiexd() {
+    scrollFiexd () {
       this.$nextTick(() => {
         let element = this.$refs.wrap
         if (element) {
@@ -146,12 +141,12 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     /*vuex actions 获取往期成交数据*/
     this._getHistoryAuctionList()
   },
   watch: {
-    'auction.showHistoryAuction'(newValue) {
+    'auction.showHistoryAuction' (newValue) {
       if (newValue) {
         this.scrollFiexd()
         newUtils.ScrollNoMove()
@@ -159,7 +154,7 @@ export default {
         newUtils.ScrollMove()
       }
     },
-    'auction.historyAuctionList'(newValue) {
+    'auction.historyAuctionList' (newValue) {
       if (newValue.length) {
         this.avragePrice = this.avrageData()
         this.maxPrice = this.minData()
@@ -354,6 +349,9 @@ export default {
           }
         }
       }
+    }
+    .nodata {
+      margin-top: 2rem;
     }
   }
 }
