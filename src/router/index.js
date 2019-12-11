@@ -13,9 +13,14 @@ const routes = [
     component: () => import(/* webpackChunkName: 'index' */ '@/views/index')
   },
   {
-    path: '/auctions',
-    name: 'auctions',
-    component: () => import(/* webpackChunkName: 'auctions' */ '@/views/auctions/auctions')
+    path: '/auction',
+    name: 'auction',
+    component: () => import(/* webpackChunkName: 'auction' */ '@/views/auction/auction')
+  },
+  {
+    path: '/newUserAuction',
+    name: 'newUserAuction',
+    component: () => import(/* webpackChunkName: 'newUserAuction' */ '@/views/newUserAction/newUserAction')
   }
 ]
 

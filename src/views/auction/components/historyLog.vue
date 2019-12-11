@@ -28,6 +28,10 @@
         </template>
       </ul>
     </div>
+    <div class="no-data" v-if="!showHistoryList">
+      <img src="../img/noList.png" alt="">
+      <p>无往期出价记录</p>
+    </div>
   </div>
 </template>
 <script>
@@ -36,7 +40,7 @@ export default {
   name: 'historyAuction',
   computed: {
     ...mapState(['auction']),
-    showHistoryList() {
+    showHistoryList () {
       return this.auction.historyAuctionList.length
     }
   },
@@ -47,12 +51,12 @@ export default {
     ...mapMutations({
       openHisotyAuctionModal: 'SET_HISTORYAUCTION_MODAL'
     }),
-    openModal() {
+    openModal () {
       /*vuex mutations 打开往期成交详情*/
       this.openHisotyAuctionModal(true)
     }
   },
-  mounted() {
+  mounted () {
     /*vuex actions 获取往期成交数据*/
     this._getHistoryAuctionList()
   }
@@ -135,6 +139,17 @@ export default {
         width: 33.33%;
         text-align: center;
       }
+    }
+  }
+  .no-data {
+    padding-top: 0.46rem;
+    height: 2rem;
+    text-align: center;
+    img {
+      margin-bottom: 0.26rem;
+      vertical-align: top;
+      width: 0.39rem;
+      height: 0.48rem;
     }
   }
 }

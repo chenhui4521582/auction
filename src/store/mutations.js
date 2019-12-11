@@ -44,5 +44,9 @@ export default {
   /** 打开关闭托管设置弹框 **/
   SET_SETTING_MODAL(state, data) {
     state.auction.showSetting = data
+  },
+  /** 打开关闭托管设置弹框 **/
+  SET_NEWUSERGUIDE_MODAL(state, data) {
+    state.auction.showNewUserGuide = data
   }
 }
