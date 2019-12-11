@@ -33,7 +33,9 @@
     <section class="of_price border-top">
       <div class="price_wrap">
         合计金额:
-        <span class="price">￥<span>{{ this.payCount | numFilter(true) }}</span></span>
+        <span class="price"
+          >￥<span>{{ this.payCount | numFilter(true) }}</span></span
+        >
       </div>
       <div class="btn_submit" @click="submit" :class="{ disable: disableSubmit.disable }">
         提交订单
@@ -48,12 +50,12 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'orderFilling',
   filters: {
-    formatAddress (value) {
+    formatAddress(value) {
       if (!value) return ''
       value = value.toString()
       return value.replace(/\d+_/, '')
     },
-    numFilter (value, showfixed) {
+    numFilter(value, showfixed) {
       let realVal = parseFloat(value).toFixed(2)
       if (showfixed) {
         return realVal
@@ -64,18 +66,18 @@ export default {
   components: { AddressInfo },
   computed: {
     ...mapState['address'],
-    totalCount () {
+    totalCount() {
       return this.goods.price * this.count
     },
-    payCount () {
+    payCount() {
       return this.totalCount.toFixed(2)
     },
-    isShowNumber () {
+    isShowNumber() {
       // 1=实物，2=手机话费，3=手机流量，4=京东E卡，5=猫币 6=金叶子 100=滴滴 101=腾讯视频 102=优酷土豆 103=爱奇艺 104=QQ音乐 105=京东E卡(佳之易) 106=星巴克 107=肯德基 108=必胜客 109=猫眼电影
       let goodsNeedNumberArr = [2, 101, 102]
       return goodsNeedNumberArr.includes(this.goods.type)
     },
-    numberMax () {
+    numberMax() {
       switch (this.goods.type) {
         case 2:
         case 102:
@@ -85,7 +87,7 @@ export default {
           return false
       }
     },
-    placeholderText () {
+    placeholderText() {
       switch (this.goods.type) {
         case 2:
         case 102:
@@ -98,10 +100,9 @@ export default {
       }
     },
     //是否可以提交
-    disableSubmit () {
+    disableSubmit() {
       if (this.goods.type == 4) {
-        this.goods.availableNum =
-          this.goods.availableNum < 10 ? this.goods.availableNum : 10
+        this.goods.availableNum = this.goods.availableNum < 10 ? this.goods.availableNum : 10
       } else if (this.goods.type == 2 || this.goods.type == 3) {
         this.goods.availableNum = 1
       }
@@ -140,7 +141,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       goods: {
         activityId: 0,
@@ -156,8 +157,7 @@ export default {
           }
         ],
         couponPrice: 0,
-        defaultImage:
-          'https://file.beeplaying.com/group1/M00/3F/74/CmcEHF3uAyaAUn3qAAHPnf48OOk424.png',
+        defaultImage: 'https://file.beeplaying.com/group1/M00/3F/74/CmcEHF3uAyaAUn3qAAHPnf48OOk424.png',
         freight: 'string',
         goodsDetailList: [
           {
@@ -170,8 +170,7 @@ export default {
         goodsTagList: ['string'],
         id: 0,
         marketPrice: 0,
-        name:
-          '华为 HUAWEI P30 超感光徕卡三摄麒麟980处理器夜光黑华为 HUAWEI P30 超感光徕卡三摄麒麟980处理器夜光黑',
+        name: '华为 HUAWEI P30 超感光徕卡三摄麒麟980处理器夜光黑华为 HUAWEI P30 超感光徕卡三摄麒麟980处理器夜光黑',
         nameSuffix: 'string',
         number: 'string',
         price: 0,
@@ -189,14 +188,14 @@ export default {
     }
   },
   methods: {
-    submit () {
+    submit() {
       if (this.disableSubmit.disable) {
         this.$Toast(this.disableSubmit.msg)
         return
       }
     }
   },
-  mounted () { }
+  mounted() {}
 }
 </script>
 
