@@ -1,5 +1,7 @@
 import _get from 'lodash.get'
+import address from './address'
 export default {
+  ...address.actions,
   getAuctionInfo({ commit }) {
     return new Promise(function(resolve, reject) {
       setTimeout(() => {

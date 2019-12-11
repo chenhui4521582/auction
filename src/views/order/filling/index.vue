@@ -1,6 +1,6 @@
 <template>
   <main class="order-filling" v-if="goods">
-    <address-info @setAddress="setAddress"></address-info>
+    <address-info v-if="goods.type === 1"></address-info>
     <article class="of_product">
       <div class="product_info_wrapper">
         <img :src="goods.defaultImage | imgFilter" class="product_img" />
@@ -12,23 +12,23 @@
           <div class="count">x{{ count || 0 }}</div>
         </div>
       </div>
-      <div class="order_info" v-if="goods.type === 2 && !this.goods.chipPiece">
-        <div class="title">手机号</div>
-        <div class="number">
-          <input type="tel" maxlength="11" id="txtPhone" ref="txtPhone" v-model="phone" placeholder="请输入充值手机号" />
-        </div>
-      </div>
       <div class="order_info" v-if="goods.type === 1">
         <div class="title">配送方式</div>
         <div class="style">包邮</div>
       </div>
       <div class="order_info" v-if="goods.type === 1">
         <div class="title">订单备注</div>
-        <div class="number">
+        <div class="text">
           <input placeholder="选填，填写您需要的规格" />
         </div>
       </div>
     </article>
+    <div class="number_wrap order_info" v-if="isShowNumber">
+      <div class="title">充值号码</div>
+      <div class="text">
+        <input type="tel" :maxlength="numberMax" id="txtPhone" ref="txtPhone" v-model="account" :placeholder="placeholderText" />
+      </div>
+    </div>
     <p class="tips">下单后24小时内发货，正品承诺。</p>
     <section class="of_price border-top">
       <div class="price_wrap">
@@ -44,6 +44,7 @@
 
 <script>
 import AddressInfo from './components/addressInfo'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'orderFilling',
   filters: {
@@ -62,22 +63,40 @@ export default {
   },
   components: { AddressInfo },
   computed: {
-    params () {
-      return {
-        name: this.address ? 'addressList' : 'addAddress',
-        query: {}
-      }
-    },
-    isAuction () {
-      return this.params.query.auctionId > 0
-    },
+    ...mapState['address'],
     totalCount () {
       return this.goods.price * this.count
     },
     payCount () {
       return this.totalCount.toFixed(2)
     },
+    isShowNumber () {
+      // 1=实物，2=手机话费，3=手机流量，4=京东E卡，5=猫币 6=金叶子 100=滴滴 101=腾讯视频 102=优酷土豆 103=爱奇艺 104=QQ音乐 105=京东E卡(佳之易) 106=星巴克 107=肯德基 108=必胜客 109=猫眼电影
+      let goodsNeedNumberArr = [2, 101, 102]
+      return goodsNeedNumberArr.includes(this.goods.type)
+    },
+    numberMax () {
+      switch (this.goods.type) {
+        case 2:
+        case 102:
+          return 11
 
+        default:
+          return false
+      }
+    },
+    placeholderText () {
+      switch (this.goods.type) {
+        case 2:
+        case 102:
+          return '输入手机号码'
+        case 101:
+          return '输入QQ号码'
+
+        default:
+          return '输入账号'
+      }
+    },
     //是否可以提交
     disableSubmit () {
       if (this.goods.type == 4) {
@@ -100,15 +119,15 @@ export default {
         }
       }
       //检查手机号填写是否符合规范
-      if (this.goods.type === 2 && !this.goods.chipPiece) {
-        if (!this.phone) {
+      if (this.goods.type === 2 || this.goods.type === 102) {
+        if (!this.account) {
           return {
             disable: true,
             msg: '请输入充值手机号'
           }
         }
         let reg = /^1[0-9]{10}$/
-        if (reg.test(this.phone)) {
+        if (reg.test(this.account)) {
           return {
             disable: true,
             msg: '请输入正确的手机号码'
@@ -160,21 +179,24 @@ export default {
         saleDesc: 'string',
         saleNum: 0,
         status: 0,
-        type: 1,
+        type: 2,
         voucherAmount: 0,
         voucherRate: 0
       },
       address: {},
-      count: 0
+      count: 0,
+      account: ''
     }
   },
   methods: {
-    setDefaultAddress (address) { this.address = address },
-    submit () { }
+    submit () {
+      if (this.disableSubmit.disable) {
+        this.$Toast(this.disableSubmit.msg)
+        return
+      }
+    }
   },
-  mounted () {
-    // Promise.all([]).then(results => { })
-  }
+  mounted () { }
 }
 </script>
 
@@ -192,84 +214,11 @@ export default {
   text-align: right;
 }
 
-.of_address {
-  font-family: "PingFangSC-Regular";
-  position: relative;
-  background: #fff;
-  width: 100%;
-  padding: 0.25rem;
-  padding-left: 1rem;
-  overflow: hidden;
-  a {
-    color: #2c3e50;
-  }
-
-  .icon {
-    position: absolute;
-    top: 0.28rem;
-    left: 0.3rem;
-
-    i {
-      font-size: 0.5rem;
-    }
-  }
-
-  .btn_add {
-    float: left;
-    font-size: 0.32rem;
-    color: #333;
-  }
-  .icon-plus {
-    width: 0.5rem;
-    height: 0.5rem;
-    display: block;
-    background-size: 0.4rem 0.4rem;
-  }
-  .of_address_info {
-    padding-right: 0.1rem;
-    .icon-location {
-      width: 0.5rem;
-      height: 0.5rem;
-      display: block;
-      background-size: 0.3rem 0.4rem;
-    }
-    .user_info {
-      color: #999;
-      height: 0.3rem;
-      margin-top: 0.2rem;
-      .user_name {
-        float: left;
-        font-size: 0.28rem;
-      }
-      .user_mobile {
-        font-size: 0.28rem;
-        float: left;
-        margin-left: 0.2rem;
-      }
-    }
-    .user_address {
-      font-size: 0.3rem;
-      text-align: left;
-      padding-right: 0.8rem;
-      color: #333;
-    }
-    .el-arrow {
-      position: absolute;
-      top: calc(50% - 0.5rem);
-      right: 0.2rem;
-      width: 0.5rem;
-      height: 1rem;
-      color: #333;
-      background-size: 0.2rem 0.3rem;
-    }
-  }
-}
-
 .of_product {
   background: #fff;
   padding: 0.24rem;
-  margin-top: 0.2rem;
   text-align: left;
+  border-radius: 0.1rem;
   .product_img {
     float: left;
     width: 1.58rem;
@@ -300,6 +249,7 @@ export default {
       text-align: left;
       color: #ff3339;
       font-size: 0.28rem;
+      line-height: 0.4rem;
       span {
         font-size: 0.36rem;
         font-weight: bolder;
@@ -311,29 +261,42 @@ export default {
       color: #999;
     }
   }
-
-  .order_info {
-    margin-top: 0.5rem;
-    overflow: hidden;
-    color: #333;
-    .title {
-      font-size: 0.28rem;
-      float: left;
-    }
-    .number {
-      float: right;
-      input {
-        font-size: 0.32rem;
-      }
-    }
-    .style {
-      float: right;
-      color: #999;
+}
+.number_wrap {
+  padding: 0.24rem;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+.order_info {
+  margin-top: 0.32rem;
+  overflow: hidden;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .title {
+    font-size: 0.28rem;
+    line-height: 0.4rem;
+    min-width: 1.6rem;
+  }
+  .text {
+    flex: 1;
+    text-align: right;
+    input {
+      line-height: 0.4rem;
+      text-align: right;
+      width: 100%;
       font-size: 0.28rem;
     }
   }
+  .style {
+    flex: 1;
+    color: #999;
+    font-size: 0.28rem;
+    line-height: 0.4rem;
+    text-align: right;
+  }
 }
-
 .of_deduction {
   background: #fff;
   padding: 0.3rem;
@@ -371,6 +334,7 @@ export default {
     .price {
       color: #ff3339;
       font-size: 0.28rem;
+      line-height: 0.4rem;
       span {
         font-size: 0.36rem;
         font-weight: bolder;
@@ -399,5 +363,20 @@ export default {
   font-size: 0.24rem;
   text-align: center;
   margin-top: 0.5rem;
+}
+::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+:-moz-placeholder {
+  color: #ccc;
+}
+
+::moz-placeholder {
+  color: #ccc;
+}
+
+:-ms-input-placeholder {
+  color: #ccc;
 }
 </style>
