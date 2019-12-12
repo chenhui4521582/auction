@@ -3,10 +3,12 @@ import VueRouter from 'vue-router'
 /***====== pages ======***/
 import My from './my'
 import Order from './order'
+import Payment from './payment'
 Vue.use(VueRouter)
 const routes = [
   ...My,
   ...Order,
+  ...Payment,
   {
     path: '/',
     name: 'index',
