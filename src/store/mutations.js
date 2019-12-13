@@ -1,4 +1,6 @@
+import address from './address'
 export default {
+  ...address.mutations,
   /** 设置轮播图列表 **/
   SET_AUCTION_SLIDERLIST(state, data) {
     state.auction.sliderList = data

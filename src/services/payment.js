@@ -60,7 +60,7 @@ const getWeek = function() {
           url: '/group1/M00/40/D4/CmcEHV2mjMyAAy5rAABXmz9mSRg371.png',
           price: 30,
           process: '',
-          status: 0,
+          status: 1,
           activityId: 15,
           selectUrl: '/group1/M00/40/D4/CmcEHV2mjPqAGsrgAABcTAJrcL8609.png'
         },
@@ -72,8 +72,44 @@ const getWeek = function() {
     resolve(res)
   })
 }
+/**
+ * @description 收银台获取支付方式
+ */
+const getPayType = function() {
+  return new Promise((resolve, reject) => {
+    let res = {
+      data: {
+        code: 200,
+        data: [
+          {
+            id: 11,
+            name: '支付宝',
+            icon: 'http://file.beepai.com/group1/M00/3F/C1/CmcEHV1CV3eAe_u4AAAKZsEMec8397.png',
+            recommend: 1,
+            payMode: 'alipayapp',
+            sort: 1,
+            remark: '推荐使用'
+          },
+          {
+            id: 17,
+            name: '京东支付',
+            icon: 'http://file.beepai.com/group1/M00/41/5C/CmcEHV3OR6iAC_R-AABg3DLYemk741.png',
+            recommend: 0,
+            payMode: 'jdapp',
+            sort: 1,
+            remark: '京东支付新用户立减10元'
+          }
+        ],
+        message: null,
+        serverTime: 1576137562080,
+        success: true
+      }
+    }
+    resolve(res)
+  })
+}
 
-export { getMallList, getWeek }
+export { getMallList, getWeek, getPayType }
 
-const Services = { getMallList, getWeek }
+const Services = { getMallList, getWeek, getPayType }
 export default Services

@@ -1,4 +1,4 @@
-import Toast from './popup/toast/toast'
+import Toast from './popup/toast/index'
 import CountDown from './countDown/countDown'
 import NoData from './noData/noData'
 import Filters from './Filters'
@@ -25,7 +25,7 @@ const components = [
   CountDown
 ]
 
-const install = function(Vue) {
+const install = function (Vue) {
   if (install.installed) return
   components.map(component => {
     Vue.component(component.name, component)
