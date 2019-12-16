@@ -2,12 +2,7 @@
   <div class="index-banner">
     <div class="wrapper">
       <swiper :options="options">
-        <swiper-slide
-          class="swiper-slide"
-          v-for="(item, index) in list"
-          :key="index"
-          @click.native="slideClick(item, index)"
-        >
+        <swiper-slide class="swiper-slide" v-for="(item, index) in list" :key="index" @click.native="slideClick(item, index)">
           <img class="swiper-img" :src="item.image | filter" alt="" />
         </swiper-slide>
       </swiper>
@@ -18,7 +13,7 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-import Services, { index } from '@/services/index'
+import { getBanner } from '@/services/index'
 import _get from 'lodash.get'
 export default {
   name: 'banner',
@@ -41,48 +36,23 @@ export default {
   },
   methods: {
     /** 获取banner图 **/
-    _getBannerList() {
-      let res = {
-        data: {
-          code: 200,
-          data: [
-            {
-              id: 46,
-              name: '特惠购-首单0元购',
-              link:
-                'beepaiapp://dispatcher/goodsMall/newUserList?activityId=12',
-              image: '/group1/M00/41/5C/CmcEHV3OBU2ATbfbAANgnNEDNO8040.png',
-              type: 'banner',
-              businessId: null
-            },
-            {
-              id: 40,
-              name: '竞拍攻略',
-              link: 'https://pai.beepai.com/auctionH5App/strategy',
-              image: '/group1/M00/41/5B/CmcEHV3NTXqAHqztAAFE0aGDH70435.png',
-              type: 'banner',
-              businessId: null
-            }
-          ],
-          message: null,
-          serverTime: 1575344915585,
-          success: true
+    _getBannerList () {
+      getBanner().then(res => {
+        let { code, data, message } = _get(res, 'data')
+        if (code == 200) {
+          this.list = _get(res, 'data.data', [])
         }
-      }
-      let { code, data, message } = _get(res, 'data')
-      if (code == 200) {
-        this.list = _get(res, 'data.data', [])
-      }
+      })
     },
     /** banner点击 **/
-    slideClick(item, index) {
+    slideClick (item, index) {
       let url = item.lightUrl || item.url
       if (url) {
         // 跳转
       }
     }
   },
-  mounted() {
+  mounted () {
     this._getBannerList()
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="count-down" v-if="showCountDown">
     <div class="item" v-for="(item, index) in countdownTime" :key="index">
-      <div class="num">{{item}}</div>
+      <div class="num">{{ item }}</div>
       <div class="separate" v-if="index != countdownTime.length - 1">:</div>
     </div>
   </div>
@@ -10,7 +10,7 @@
 export default {
   name: 'countDown',
   props: ['time'],
-  data: ()=> ({
+  data: () => ({
     countdownTime: []
   }),
   computed: {
@@ -50,7 +50,7 @@ export default {
     }
   },
   mounted() {
-    if(this.time > 0) {
+    if (this.time > 0) {
       this.timer && clearInterval(this.timer)
       this.initTime(this.time)
       this.countDown(this.time)
@@ -58,7 +58,7 @@ export default {
   },
   watch: {
     time(value) {
-      if(value > 0) {
+      if (value > 0) {
         this.timer && clearInterval(this.timer)
         this.initTime(this.timer)
         this.countDown(this.time)
@@ -79,24 +79,24 @@ export default {
     justify-content: flex-start;
     align-items: center;
     .num {
-      padding: 0 .05rem;
-      height: .44rem;
+      padding: 0 0.05rem;
+      min-width: 0.4rem;
+      height: 0.44rem;
       text-align: center;
-      line-height: .44rem;
+      line-height: 0.44rem;
       color: #fff;
-      font-size: .24rem;
-      border-radius: .06rem;
+      font-size: 0.24rem;
+      border-radius: 0.06rem;
       background: #333333;
     }
     .separate {
-      padding: 0 .05rem;
-      height: .44rem;
+      padding: 0 0.05rem;
+      height: 0.44rem;
       text-align: center;
-      line-height: .44rem;
-      font-size: .28rem;
+      line-height: 0.44rem;
+      font-size: 0.28rem;
       color: #333333;
     }
-
   }
 }
 </style>

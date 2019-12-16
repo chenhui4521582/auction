@@ -23,6 +23,11 @@ const routes = [
     path: '/newUserAuction',
     name: 'newUserAuction',
     component: () => import(/* webpackChunkName: 'newUserAuction' */ '@/views/newUserAction/newUserAction')
+  },
+  {
+    path: '/dealLog',
+    name: 'dealLog',
+    component: () => import(/* webpackChunkName: 'dealLog' */ '@/views/dealLog/dealLog')
   }
 ]
 
