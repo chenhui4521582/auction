@@ -1,4 +1,6 @@
-let state = {
+import address from './address'
+export default {
+  ...address.state,
   auction: {
     /** 轮播图列表 **/
     sliderList: [],
@@ -21,7 +23,8 @@ let state = {
     /** 打开关闭托管设置弹框 **/
     showSetting: false,
     /** 打开关闭玩法指南详情弹框 **/
-    showPlaying: false
+    showPlaying: false,
+    /** 打开关闭新手引导弹框 **/
+    showNewUserGuide: false
   }
 }
-export default state

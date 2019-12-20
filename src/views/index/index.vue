@@ -1,10 +1,12 @@
 <template>
   <div class="index">
-    <!-- 首页轮播图 -->
-    <banner />
-    <!-- 获取跑马灯 -->
-    <notice />
-    <div class="go-payment-title">
+    <div class="wrap">
+      <!-- 首页轮播图 -->
+      <banner />
+      <!-- 交易记录跑马灯 -->
+      <notice />
+    </div>
+    <div class="go-payment-title" @click="gotoPay">
       <div class="name">充值中心</div>
       <div class="operation">
         最高加赠15%
@@ -32,6 +34,13 @@ export default {
     HotAuction,
     NewAuction,
     AuctionList
+  },
+  methods: {
+    gotoPay() {
+      this.$router.push({
+        name: 'paymentMall'
+      })
+    }
   }
 }
 </script>
@@ -39,6 +48,9 @@ export default {
 .index {
   overflow-x: hidden;
   padding: 0.16rem 0 0.16rem;
+  .wrap {
+    position: relative;
+  }
   .go-payment-title {
     margin: 0 0.24rem 0.24rem 0.24rem;
     padding: 0 0.32rem 0 0.24rem;
@@ -54,8 +66,7 @@ export default {
     }
     .operation {
       padding-right: 0.21rem;
-      background: url(./img/right-icon.png) no-repeat right center / 0.09rem
-        0.17rem;
+      background: url(./img/right-icon.png) no-repeat right center / 0.09rem 0.17rem;
       font-size: 0.24rem;
       color: #333;
     }

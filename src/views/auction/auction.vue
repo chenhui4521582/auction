@@ -32,6 +32,8 @@
     <history-auction-modal />
     <!-- 往期出价弹框 -->
     <offerlog-modal />
+    <!-- 新手引导 -->
+    <new-user-guide />
   </div>
   <loading v-else />
 </template>
@@ -51,6 +53,7 @@ import SettingModal from './components/popup/settingModal'
 import PlayingModal from './components/popup/playingModal'
 import HistoryAuctionModal from './components/popup/historyAuctionModal'
 import OfferlogModal from './components/popup/offerLogModal'
+import NewUserGuide from './components/newUserGuide'
 import _get from 'lodash.get'
 import { mapActions } from 'vuex'
 export default {
@@ -73,7 +76,8 @@ export default {
     SettingModal,
     PlayingModal,
     HistoryAuctionModal,
-    OfferlogModal
+    OfferlogModal,
+    NewUserGuide
   },
   methods: {
     ...mapActions({

@@ -1,4 +1,6 @@
+import address from './address'
 export default {
+  ...address.mutations,
   /** 设置轮播图列表 **/
   SET_AUCTION_SLIDERLIST(state, data) {
     state.auction.sliderList = data
@@ -42,5 +44,9 @@ export default {
   /** 打开关闭托管设置弹框 **/
   SET_SETTING_MODAL(state, data) {
     state.auction.showSetting = data
+  },
+  /** 打开关闭托管设置弹框 **/
+  SET_NEWUSERGUIDE_MODAL(state, data) {
+    state.auction.showNewUserGuide = data
   }
 }

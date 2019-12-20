@@ -28,12 +28,13 @@
   "vetur.format.defaultFormatter.js": "vscode-typescript",
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
-      "wrap_line_length": 1120,
       "wrap_attributes": "auto",
       "end_with_newline": false
       // #vue组件中html代码格式化样式
     }
   },
+  "prettier.jsxSingleQuote": true,
+  "prettier.printWidth": 150,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }

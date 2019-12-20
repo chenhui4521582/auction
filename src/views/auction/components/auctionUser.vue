@@ -1,43 +1,50 @@
 <template>
   <div class="auction-user">
-    <div class="title">
-      <div class="name">
-        当前出价
+    <div class="wrap" v-if="showList">
+      <div class="title">
+        <div class="name">
+          当前出价
+        </div>
+        <div class="check" @click="openModal">
+          出价记录<img src="../img/right-icon.png" alt="" />
+        </div>
       </div>
-      <div class="check" @click="openModal">
-        出价记录<img src="../img/right-icon.png" alt="" />
+      <div class="list">
+        <ul>
+          <template v-for="(item, index) in auction.offerLog">
+            <li :key="index" v-if="index == 0">
+              <div class="avatar">
+                <img v-if="item.headImg" v-lazy="item.headImg" alt="" />
+                <img v-else src="~@/assets/img/default-avatar.png" alt="" />
+              </div>
+              <div class="desc">
+                <div class="name">
+                  {{ item.nickname }}
+                </div>
+                <div class="price">
+                  若无人出价，将以<span>¥{{ item.afterPrice }}</span>拍得该商品
+                </div>
+              </div>
+            </li>
+            <li v-else-if="index < 3" :key="index">
+              <div class="avatar">
+                <img v-if="item.headImg" v-lazy="item.headImg" alt="" />
+                <img v-else src="~@/assets/img/default-avatar.png" alt="" />
+              </div>
+              <div class="desc">
+                <div class="name">
+                  {{ item.nickname }}
+                </div>
+                <div class="price">¥{{ item.afterPrice }}</div>
+              </div>
+            </li>
+          </template>
+        </ul>
       </div>
     </div>
-    <div class="list" v-if="showList">
-      <ul>
-        <template v-for="(item, index) in list">
-          <li :key="index" v-if="index == 0">
-            <div class="avatar">
-              <img v-lazy="item.avatar" alt="" />
-            </div>
-            <div class="desc">
-              <div class="name">
-                {{ item.name }}
-              </div>
-              <div class="price">
-                若无人出价，将以<span>¥{{ item.price }}</span
-                >拍得该商品
-              </div>
-            </div>
-          </li>
-          <li v-else-if="index < 3" :key="index">
-            <div class="avatar">
-              <img v-lazy="item.avatar" alt="" />
-            </div>
-            <div class="desc">
-              <div class="name">
-                {{ item.name }}
-              </div>
-              <div class="price">¥{{ item.price }}</div>
-            </div>
-          </li>
-        </template>
-      </ul>
+    <div class="no-data" v-if="!showList">
+      <img src="../img/noList.png" alt="">
+      <p>暂无人出价</p>
     </div>
   </div>
 </template>
@@ -45,38 +52,10 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'auctionUser',
-  data: () => ({
-    list: [
-      {
-        avatar:
-          'https://file.beeplaying.com/cdn/common/images/common/img_photo.png',
-        name: '小蜜蜂爱跳舞',
-        price: '19.08'
-      },
-      {
-        avatar:
-          'https://file.beeplaying.com/cdn/common/images/common/img_photo.png',
-        name: '追忆楠',
-        price: '19.05'
-      },
-      {
-        avatar:
-          'https://file.beeplaying.com/cdn/common/images/common/img_photo.png',
-        name: '稻田的麦子',
-        price: '19.03'
-      },
-      {
-        avatar:
-          'https://file.beeplaying.com/cdn/common/images/common/img_photo.png',
-        name: '稻田的麦子1',
-        price: '19.03'
-      }
-    ]
-  }),
   computed: {
     ...mapState(['auction']),
-    showList() {
-      return this.list.length
+    showList () {
+      return this.auction.offerLog.length
     }
   },
   methods: {
@@ -84,7 +63,7 @@ export default {
       openOfferLogModal: 'SET_OFFERLOG_MODAL'
     }),
     /** 打开往期出价弹框 **/
-    openModal() {
+    openModal () {
       /**vuex mutations 打开往期出价弹框 **/
       this.openOfferLogModal(true)
     }
@@ -132,6 +111,8 @@ export default {
           margin-right: 0.1rem;
           width: 0.7rem;
           height: 0.7rem;
+          border-radius: 50%;
+          overflow: hidden;
         }
         .desc {
           flex-direction: column;
@@ -141,6 +122,7 @@ export default {
             color: #333;
           }
           .price {
+            white-space: nowrap;
             span {
               color: #f44236;
             }
@@ -160,6 +142,8 @@ export default {
         margin-right: 0.06rem;
         width: 0.52rem;
         height: 0.52rem;
+        border-radius: 50%;
+        overflow: hidden;
         img {
           width: 100%;
           height: 100%;
@@ -175,6 +159,17 @@ export default {
         color: #999;
         flex: 1;
       }
+    }
+  }
+  .no-data {
+    padding-top: 0.46rem;
+    height: 1.8rem;
+    text-align: center;
+    img {
+      margin-bottom: 0.26rem;
+      vertical-align: top;
+      width: 0.39rem;
+      height: 0.48rem;
     }
   }
 }

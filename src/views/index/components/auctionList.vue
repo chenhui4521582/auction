@@ -1622,9 +1622,9 @@ export default {
         window.addEventListener("scroll", event => {
           let scrollTop = document.documentElement.scrollTop||document.body.scrollTop
           if(scrollTop >= navScrollTop ) {
-            this.$refs.nav.classList.add('fixed')
+            this.$refs.nav && this.$refs.nav.classList.add('fixed')
           }else {
-            this.$refs.nav.classList.remove('fixed')
+            this.$refs.nav && this.$refs.nav.classList.remove('fixed')
           }
         })
       })
@@ -1632,7 +1632,7 @@ export default {
     /** 详情跳转 **/
     goAuction() {
       this.$router.push({
-        name: 'auctions'
+        name: 'auction'
       })
     }
   },
