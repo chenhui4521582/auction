@@ -33,5 +33,8 @@
       "end_with_newline": false
       // #vue组件中html代码格式化样式
     }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
